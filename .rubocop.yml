@@ -44,7 +44,6 @@ Style/HashSyntax:
 # extra level of indentation.
 Style/IndentationConsistency:
   Enabled: true
-  EnforcedStyle: rails
 
 # Two spaces, no tabs (for indentation).
 Style/IndentationWidth:

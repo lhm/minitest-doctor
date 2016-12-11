@@ -1,5 +1,6 @@
 require "minitest/doctor/version"
 require 'minitest'
+require "english"
 
 module Minitest
   module Doctor
@@ -9,12 +10,15 @@ module Minitest
       end
 
       def run
-        self.failures << self.send(self.name)
+        result = self.send(self.name)
+        self.failures << result unless result.nil?
         self # per contract
       end
     end
 
     class CheckupReporter < Minitest::Reporter
+      SEP = $INPUT_RECORD_SEPARATOR
+
       attr_accessor :results
 
       def initialize(io = $stdout, options = {})
@@ -28,8 +32,24 @@ module Minitest
       end
 
       def report
-        io.puts results.flat_map(&:failures).join("\n")
+        io.puts formatted(results)
+      end
+
+      private
+
+      def formatted(results)
+        messages = results.flat_map(&:failures)
+        messages.map! do |msg|
+          msg.indent(4).gsub(/\A\W{3}/, "[!]")
+        end
+        messages.join(SEP * 2)
       end
     end
+  end
+end
+
+class String
+  def indent(count = 2, char = " ")
+    (char * count) + gsub(/(\n+)/) { $1 + (char * count) }
   end
 end

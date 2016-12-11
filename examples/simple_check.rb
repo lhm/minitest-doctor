@@ -18,12 +18,8 @@ class SimpleCheck < Minitest::Doctor::Checkup
     return nil if $?.success?
     <<~EOS
       Seems there are some rubocop warnings in these files:
-      #{indent(files)}
+      #{files.indent}
     EOS
-  end
-
-  def indent(str, count = 2)
-    (" " * count) + str.gsub(/(\n+)/) { $1 + (" " * count) }
   end
 end
 
