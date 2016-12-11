@@ -6,7 +6,7 @@ class TestCheckup < Minitest::Doctor::Checkup
   end
 
   def check_ok
-    return nil
+    return nil if true
     "This is ok"
   end
 end

@@ -1,6 +1,5 @@
 require "minitest/doctor/version"
-require "minitest"
-require "minitest/doctor/dont_run_checkup_as_tests"
+require 'minitest'
 
 module Minitest
   module Doctor

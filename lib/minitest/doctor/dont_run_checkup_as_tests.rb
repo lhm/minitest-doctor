@@ -1,4 +1,7 @@
 module Minitest
+  # This is only here to prevent running checkups as tests
+  # since Minitest::Runnable registers all it's inheritants
+  # TODO: see if this can be fixed in Minitest properly
   module DontRunCheckupAsTests
     module ClassMethods
       def inherited(klass)
