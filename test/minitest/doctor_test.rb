@@ -1,11 +1,29 @@
 require "test_helper"
 
-class Minitest::DoctorTest < Minitest::Test
-  def test_that_it_has_a_version_number
-    refute_nil ::Minitest::Doctor::VERSION
+class TestCheckup < Minitest::Doctor::Checkup
+  def check_warning
+    "This is a warning"
   end
 
-  def test_it_does_something_useful
-    assert false
+  def check_ok
+    return nil
+    "This is ok"
+  end
+end
+
+class Minitest::DoctorTest < Minitest::Test
+  def setup
+    @output = StringIO.new
+    @reporter = Minitest::Doctor::CheckupReporter.new(@output)
+    TestCheckup.run(@reporter)
+    @reporter.report
+  end
+
+  def test_run_reports_warning_message
+    assert_match "This is a warning", @output.string
+  end
+
+  def test_run_reports_nothing_when_ok
+    refute_match "This is ok", @output.string
   end
 end
