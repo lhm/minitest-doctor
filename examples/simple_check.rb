@@ -23,6 +23,6 @@ class SimpleCheck < Minitest::Doctor::Checkup
   end
 end
 
-reporter = Minitest::Doctor::CheckupReporter.new
+reporter = Minitest::Doctor::Reporter.new
 SimpleCheck.run(reporter)
 reporter.report

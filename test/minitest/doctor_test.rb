@@ -14,7 +14,7 @@ end
 class Minitest::DoctorTest < Minitest::Test
   def setup
     @output = StringIO.new
-    @reporter = Minitest::Doctor::CheckupReporter.new(@output)
+    @reporter = Minitest::Doctor::Reporter.new(@output)
     TestCheckup.run(@reporter)
     @reporter.report
   end
